@@ -49,3 +49,6 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+
+# Desktop Services Store file (mac)
+.DS_Store
