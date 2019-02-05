@@ -7,7 +7,8 @@ public enum EItemType
 {
     Default,
     Consumable,
-    Weapon
+    Weapon,
+    Synthesizable
 }
 
 public class InteractableItemBase : MonoBehaviour
