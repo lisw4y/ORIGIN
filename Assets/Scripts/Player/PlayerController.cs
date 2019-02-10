@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     CharacterController characterController;
     PlayerStats playerStats;
+    CharacterCombat characterCombat;
     Interactable interactable;
     bool isInteracting = false;
     public bool IsRunning { get; private set; } = false;
@@ -22,11 +23,12 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         playerStats = GetComponent<PlayerStats>();
+        characterCombat = GetComponent<CharacterCombat>();
     }
 
     void FixedUpdate()
     {
-        if (inventoryPanel.activeSelf)
+        if (inventoryPanel.activeSelf || animator.GetCurrentAnimatorStateInfo(0).IsName("Pickup"))
             return;
 
         float h = Input.GetAxisRaw("Horizontal");
@@ -105,6 +107,7 @@ public class PlayerController : MonoBehaviour
         if (isInteracting &&
             interactable.interactableType == InteractableType.DroppedItem)
         {
+            animator.SetTrigger("tr_pickup");
             interactable.Interact();
             interactable.CloseInfo();
             isInteracting = false;
@@ -113,11 +116,15 @@ public class PlayerController : MonoBehaviour
 
     public void Act()
     {
-        animator.SetTrigger("attack_1");
-        if (isInteracting &&
-            (interactable.interactableType == InteractableType.Resource || interactable.interactableType == InteractableType.Enemy))
+        if (characterCombat.Attackable())
         {
-            interactable.Interact();
+            animator.SetTrigger("attack_1");
+            if (isInteracting &&
+                (interactable.interactableType == InteractableType.Resource || interactable.interactableType == InteractableType.Enemy))
+            {
+                interactable.Interact();
+            }
+            characterCombat.ResetCooldown();
         }
     }
 }

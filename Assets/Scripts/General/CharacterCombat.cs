@@ -42,4 +42,14 @@ public class CharacterCombat : MonoBehaviour
 
         stats.TakeDamage(EquipmentManager.instance.CurrentEquipment.attackPower);
     }
+
+    public bool Attackable()
+    {
+        return attackCooldown <= 0f;
+    }
+
+    public void ResetCooldown()
+    {
+        attackCooldown = 1f / attackSpeed;
+    }
 }
