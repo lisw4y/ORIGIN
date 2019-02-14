@@ -13,12 +13,31 @@ public class InventorySlot : MonoBehaviour
         item = newItem;
         icon.sprite = item.icon;
         icon.enabled = true;
-        count.text = item.count.ToString();
+        count.text = item.getCount().ToString();
 
         if (item.isStackable)
             count.enabled = true;
 
         removeButton.interactable = true;
+    }
+
+    public void ShowItem(Item item, bool hasItem, bool enough)
+    {
+        ClearSlot();
+        AddItem(item);
+        if (!hasItem)
+        {
+            count.text = "0";
+        }
+        if (!enough)
+        {
+            count.color = Color.red;
+        }
+        else
+        {
+            count.color = Color.black;
+        }
+        removeButton.enabled = false;
     }
 
     public void ClearSlot()
@@ -39,7 +58,11 @@ public class InventorySlot : MonoBehaviour
     {
         if (item != null)
         {
-            item.Use();
+            print(GetComponent<Transform>().parent);
+            if (GetComponent<Transform>().parent.name.Equals("ItemsParent"))
+            {
+                item.Use();
+            }
         }
     }
 }

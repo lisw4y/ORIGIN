@@ -33,10 +33,10 @@ public class Inventory : MonoBehaviour
             {
                 if (items[i].name == item.name)
                 {
-                    if (items[i].count >= maxCount)
+                    if (items[i].getCount() >= maxCount)
                         return false;
                     else
-                        items[i].count++;
+                        items[i].addCount(1);
                     isAdded = true;
                 }
             }
@@ -57,5 +57,20 @@ public class Inventory : MonoBehaviour
 
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
+    }
+
+    public void ReduceStock(Item item, int num)
+    {
+        Item stock = items.Find(x => x.name.Equals(item.name));
+        stock.addCount(-num);
+        if (stock.getCount() <= 0)
+        {
+            Remove(item);
+        }
+    }
+
+    public Item GetItem(Item item)
+    {
+        return items.Find(x => x.name.Equals(item.name));
     }
 }

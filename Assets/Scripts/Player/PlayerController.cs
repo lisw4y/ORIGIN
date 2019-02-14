@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour
 
         Move(h, v);
     }
-
     void OnTriggerEnter(Collider other)
     {
         if (!isInteracting)

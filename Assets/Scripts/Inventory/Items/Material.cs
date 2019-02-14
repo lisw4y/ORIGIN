@@ -5,6 +5,7 @@ public class Material : Item
 {
     void Awake()
     {
+        setCount(1);
         isStackable = true;
     }
 }
