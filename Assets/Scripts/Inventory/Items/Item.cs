@@ -23,17 +23,17 @@ public class Item : ScriptableObject
         Inventory.instance.Remove(this);
     }
 
-    public void setCount(int num)
+    public void SetCount(int num)
     {
         count = num;
     }
 
-    public int getCount()
+    public int GetCount()
     {
         return count;
     }
 
-    public void addCount(int num)
+    public void AddCount(int num)
     {
         count += num;
     }

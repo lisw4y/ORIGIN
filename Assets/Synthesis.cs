@@ -67,7 +67,7 @@ public class Synthesis : MonoBehaviour
             else
             {
                 materialSlot.ShowItem(material, hasItem,
-                        stock.getCount() >= item.amountNeeded[i]);
+                        stock.GetCount() >= item.amountNeeded[i]);
             }
 
             Text amountNeeded = materialSlots[i].transform.GetChild(1).GetComponent<Text>();

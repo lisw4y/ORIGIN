@@ -13,7 +13,7 @@ public class InventorySlot : MonoBehaviour
         item = newItem;
         icon.sprite = item.icon;
         icon.enabled = true;
-        count.text = item.getCount().ToString();
+        count.text = item.GetCount().ToString();
 
         if (item.isStackable)
             count.enabled = true;

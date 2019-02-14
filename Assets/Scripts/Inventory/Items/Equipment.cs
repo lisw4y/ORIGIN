@@ -16,7 +16,7 @@ public class Equipment : Item
 
     private void Awake()
     {
-        setCount(1);
+        SetCount(1);
     }
     public override void Use()
     { 
