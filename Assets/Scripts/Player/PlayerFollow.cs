@@ -39,7 +39,7 @@ public class PlayerFollow : MonoBehaviour
             if (!RotateMiddleMouseButton)
                 return true;
 
-            if (RotateMiddleMouseButton && Input.GetMouseButton(2))
+            if (Input.GetMouseButton(0))
                 return true;
 
             return false;
@@ -57,17 +57,7 @@ public class PlayerFollow : MonoBehaviour
 
             Quaternion camTurnAngle = Quaternion.AngleAxis(h, Vector3.up);
 
-            Quaternion camTurnAngleY = Quaternion.AngleAxis(v, transform.right);
-
-            Vector3 newCameraOffset = camTurnAngle * camTurnAngleY * _cameraOffset;
-
-            // Limit camera pitch
-            if (newCameraOffset.y < CameraPitchMin || newCameraOffset.y > CameraPitchMax)
-            {
-                newCameraOffset = camTurnAngle * _cameraOffset;
-            }
-
-            _cameraOffset = newCameraOffset;
+            _cameraOffset = camTurnAngle * _cameraOffset;
 
         }
 
