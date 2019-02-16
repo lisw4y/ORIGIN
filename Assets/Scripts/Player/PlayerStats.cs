@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class PlayerStats : CharacterStats
 {
-    public GameObject statusPanel;
     public float maxFood = 100f;
     public float hungerRate = 1f;
     public float hungerAmount = 1f;
@@ -11,11 +10,7 @@ public class PlayerStats : CharacterStats
     public float flashSpeed = 5f;
     public Color flashColor = new Color(1f, 0f, 0f, 0.1f);
     public AudioClip deathClip;
-
-    Slider healthSlider;
-    Text healthText;
-    Slider foodSlider;
-    Text foodText;
+    
     Animator animator;
     AudioSource playerAudio;
     PlayerController playerController;
@@ -24,10 +19,6 @@ public class PlayerStats : CharacterStats
 
     void Start()
     {
-        healthSlider = statusPanel.transform.Find("HealthSlider").GetComponent<Slider>();
-        healthText = healthSlider.transform.Find("HealthText").GetComponent<Text>();
-        foodSlider = statusPanel.transform.Find("FoodSlider").GetComponent<Slider>();
-        foodText = foodSlider.transform.Find("FoodText").GetComponent<Text>();
         animator = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
         playerController = GetComponent<PlayerController>();
@@ -114,13 +105,13 @@ public class PlayerStats : CharacterStats
 
     void SetHealthSlider(float amount)
     {
-        healthSlider.value = currentHealth;
-        healthText.text = currentHealth + "%";
+        HUDManager.instance.healthSlider.value = currentHealth;
+        HUDManager.instance.healthText.text = currentHealth + "%";
     }
 
     void SetFoodSlider(float amount)
     {
-        foodSlider.value = currentFood;
-        foodText.text = currentFood + "%";
+        HUDManager.instance.foodSlider.value = currentFood;
+        HUDManager.instance.foodText.text = currentFood + "%";
     }
 }

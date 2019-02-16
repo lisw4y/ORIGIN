@@ -3,8 +3,8 @@
 public abstract class CharacterStats : MonoBehaviour
 {
     public float maxHealth;
-    public float currentHealth;
-    public bool isDead;
+    [HideInInspector] public float currentHealth;
+    [HideInInspector] public bool isDead;
 
     void Awake()
     {

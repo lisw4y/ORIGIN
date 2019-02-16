@@ -9,7 +9,7 @@ public enum InteractableType
 
 public abstract class Interactable : MonoBehaviour
 {
-    public InteractableType interactableType;
+    [HideInInspector] public InteractableType interactableType;
 
     public abstract void ShowInfo();
 

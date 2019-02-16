@@ -24,8 +24,8 @@ public class ButtonManager : MonoBehaviour
         playerController.Pickup();
     }
 
-    public void OnActButton()
+    public void OnAttackButton()
     {
-        playerController.Act();
+        playerController.Attack();
     }
 }

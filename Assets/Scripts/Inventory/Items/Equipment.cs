@@ -10,18 +10,13 @@ public class Equipment : Item
 {
     public EquipmentType equipmentType;
     public int attackPower;
-    public SkinnedMeshRenderer mesh;
     public Material[] materials;
     public int[] amountNeeded;
 
-    private void Awake()
-    {
-        SetCount(1);
-    }
-    public override void Use()
+    public override void Use(int index)
     { 
-        base.Use();
+        base.Use(index);
         EquipmentManager.instance.Equip(this);
-        RemoveFromInventory();
+        RemoveFromInventory(index);
     }
 }

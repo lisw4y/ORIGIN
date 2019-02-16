@@ -4,40 +4,28 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour
 {
     public Image icon;
-    public Text count;
+    public Text countText;
     public Button removeButton;
     Item item;
 
-    public void AddItem(Item newItem)
+    public void CreatSlot(Item newItem, int count)
     {
         item = newItem;
         icon.sprite = item.icon;
         icon.enabled = true;
-        count.text = item.GetCount().ToString();
+        countText.text = count.ToString();
 
         if (item.isStackable)
-            count.enabled = true;
+            countText.enabled = true;
 
         removeButton.interactable = true;
     }
 
-    public void ShowItem(Item item, bool hasItem, bool enough)
+    public void CreatSlot(Item item, int count, bool isEnough)
     {
-        ClearSlot();
-        AddItem(item);
-        if (!hasItem)
-        {
-            count.text = "0";
-        }
-        if (!enough)
-        {
-            count.color = Color.red;
-        }
-        else
-        {
-            count.color = Color.black;
-        }
-        removeButton.enabled = false;
+        CreatSlot(item, count);
+        countText.color = isEnough ? Color.black : Color.red;
+        removeButton.interactable = false;
     }
 
     public void ClearSlot()
@@ -45,24 +33,20 @@ public class InventorySlot : MonoBehaviour
         item = null;
         icon.sprite = null;
         icon.enabled = false;
-        count.enabled = false;
+        countText.enabled = false;
         removeButton.interactable = false;
     }
 
-    public void OnRemoveButton()
+    public void OnRemoveButton(int index)
     {
-        Inventory.instance.Remove(item);
+        Inventory.instance.Remove(index);
     }
 
-    public void UseItem()
+    public void UseItem(int index)
     {
         if (item != null)
         {
-            print(GetComponent<Transform>().parent);
-            if (GetComponent<Transform>().parent.name.Equals("ItemsParent"))
-            {
-                item.Use();
-            }
+            item.Use(index);
         }
     }
 }

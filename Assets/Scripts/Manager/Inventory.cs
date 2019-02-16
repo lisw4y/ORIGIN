@@ -20,12 +20,10 @@ public class Inventory : MonoBehaviour
     public int space = 15;
     public int maxCount = 99;
     public List<Item> items = new List<Item>();
+    public List<int> counts = new List<int>();
 
     public bool Add(Item item)
     {
-        if (items.Count >= space)
-            return false;
-
         bool isAdded = false;
         if (item.isStackable)
         {
@@ -33,17 +31,23 @@ public class Inventory : MonoBehaviour
             {
                 if (items[i].name == item.name) 
                 {
-                    if (items[i].GetCount() >= maxCount)
+                    if (counts[i] >= maxCount)
                         return false;
                     else
-                        items[i].AddCount(1);
+                        counts[i]++;
                     isAdded = true;
                 }
             }
         }
 
         if (!isAdded)
+        {
+            if (items.Count >= space)
+                return false;
+
             items.Add(item);
+            counts.Add(1);
+        }
 
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
@@ -51,9 +55,10 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    public void Remove(Item item)
+    public void Remove(int index)
     {
-        items.Remove(item);
+        items.RemoveAt(index);
+        counts.RemoveAt(index);
 
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
@@ -61,16 +66,17 @@ public class Inventory : MonoBehaviour
 
     public void ReduceStock(Item item, int num)
     {
-        Item stock = items.Find(x => x.name.Equals(item.name));
-        stock.AddCount(-num);
-        if (stock.GetCount() <= 0)
+        int index = items.FindIndex(x => x.name.Equals(item.name));
+        counts[index] -= num;
+        if (counts[index] <= 0)
         {
-            Remove(item);
+            Remove(index);
         }
     }
 
-    public Item GetItem(Item item)
+    public int GetCount(Item item)
     {
-        return items.Find(x => x.name.Equals(item.name));
+        int index = items.FindIndex(x => x.name.Equals(item.name));
+        return index != -1 ? counts[index] : 0;
     }
 }

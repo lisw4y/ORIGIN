@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     public float jumpSpeed = 7.0f;
     public float gravity = 20.0f;
     public GameObject hand;
-    public GameObject inventoryPanel;
     
     Vector3 movementDirection;
     Animator animator;
@@ -24,11 +23,12 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         playerStats = GetComponent<PlayerStats>();
         characterCombat = GetComponent<CharacterCombat>();
+        HUDManager.instance.inventoryPanel.SetActive(false);
     }
 
     void FixedUpdate()
     {
-        if (inventoryPanel.activeSelf || animator.GetCurrentAnimatorStateInfo(0).IsName("Pickup"))
+        if (HUDManager.instance.inventoryPanel.activeSelf || animator.GetCurrentAnimatorStateInfo(0).IsName("Pickup"))
             return;
 
         float h = Input.GetAxisRaw("Horizontal");
@@ -92,12 +92,12 @@ public class PlayerController : MonoBehaviour
 
     public void ToggleInventoryPanel()
     {
-        if (!inventoryPanel.activeSelf)
+        if (!HUDManager.instance.inventoryPanel.activeSelf)
         {
-            inventoryPanel.SetActive(true);
+            HUDManager.instance.inventoryPanel.SetActive(true);
         } else
         {
-            inventoryPanel.SetActive(false);
+            HUDManager.instance.inventoryPanel.SetActive(false);
         }
     }
 
@@ -113,9 +113,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Act()
+    public void Attack()
     {
-        if (characterCombat.Attackable())
+        if (characterCombat.Attackable() && EquipmentManager.instance.CurrentEquipment)
         {
             animator.SetTrigger("attack_1");
             if (isInteracting &&

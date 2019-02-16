@@ -5,36 +5,15 @@ public class Item : ScriptableObject
 {
     new public string name = "New Item";
     public Sprite icon = null;
-    public bool isStackable = false;
-    public int count;
+    [HideInInspector] public bool isStackable = false;
 
-    public void Start()
-    {
-        count = 1;
-    }
-
-    public virtual void Use()
+    public virtual void Use(int index)
     {
 
     }
 
-    public void RemoveFromInventory()
+    public void RemoveFromInventory(int index)
     {
-        Inventory.instance.Remove(this);
-    }
-
-    public void SetCount(int num)
-    {
-        count = num;
-    }
-
-    public int GetCount()
-    {
-        return count;
-    }
-
-    public void AddCount(int num)
-    {
-        count += num;
+        Inventory.instance.Remove(index);
     }
 }

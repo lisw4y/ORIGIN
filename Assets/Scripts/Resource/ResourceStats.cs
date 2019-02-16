@@ -2,6 +2,7 @@
 
 public class ResourceStats : CharacterStats
 {
+    [Tooltip("This kind of resource can be only exploited by this equipment")]
     public string equipmentName;
     public DroppedItem[] generatedItems;
     public float regeneratedTime;

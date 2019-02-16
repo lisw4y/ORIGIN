@@ -57,18 +57,11 @@ public class Synthesis : MonoBehaviour
         {
             Item material = item.materials[i];
             InventorySlot materialSlot = materialSlots[i].transform.GetChild(0).GetComponent<InventorySlot>();
-            Item stock = inventory.GetItem(material);
-            bool hasItem = (stock != null);
-            if (!hasItem)
-            {
-                materialSlot.ShowItem(material, hasItem, false);
+            int count = inventory.GetCount(material);
+            bool isEnough = count >= item.amountNeeded[i];
+            materialSlot.CreatSlot(material, count, isEnough);
+            if (!isEnough)
                 goodToSynthesize = false;
-            }
-            else
-            {
-                materialSlot.ShowItem(material, hasItem,
-                        stock.GetCount() >= item.amountNeeded[i]);
-            }
 
             Text amountNeeded = materialSlots[i].transform.GetChild(1).GetComponent<Text>();
             amountNeeded.text = item.amountNeeded[i].ToString();
