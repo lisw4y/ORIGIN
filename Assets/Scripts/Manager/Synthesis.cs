@@ -73,6 +73,7 @@ public class Synthesis : MonoBehaviour
             materialSlots[i].SetActive(true);
         }
         detailPanel.SetActive(true);
+        createButton.SetActive(goodToSynthesize);
     }
 
     public void OnCreateButton()
