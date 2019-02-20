@@ -45,6 +45,11 @@ public class Synthesis : MonoBehaviour
         else detailPanel.SetActive(false);
     }
 
+    public void OnSelectItemButton(Equipment item)
+    {
+        ShowMaterials(item);
+    }
+
     public void ShowMaterials(Equipment item)
     {
         selectedItem = item;
@@ -70,7 +75,7 @@ public class Synthesis : MonoBehaviour
         detailPanel.SetActive(true);
     }
 
-    public void Synthesize()
+    public void OnCreateButton()
     {
         if (goodToSynthesize)
         {
