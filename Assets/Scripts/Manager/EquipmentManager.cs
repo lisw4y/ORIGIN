@@ -22,6 +22,7 @@ public class EquipmentManager : MonoBehaviour
     public Button removeButton;
 
     public Equipment CurrentEquipment { get; private set; }
+    GameObject instantiatedItem;
     Inventory inventory;
 
     void Start()
@@ -46,6 +47,11 @@ public class EquipmentManager : MonoBehaviour
         icon.sprite = newItem.icon;
         icon.enabled = true;
         removeButton.interactable = true;
+
+        instantiatedItem = Instantiate(newItem.instantiatedItem);
+        instantiatedItem.transform.parent = PlayerManager.instance.player.GetComponent<PlayerController>().hand.transform;
+        instantiatedItem.transform.localPosition = newItem.EquipPosition;
+        instantiatedItem.transform.localEulerAngles = newItem.EquipRotation;
     }
 
     public void Unequip()
@@ -61,6 +67,8 @@ public class EquipmentManager : MonoBehaviour
             icon.sprite = null;
             icon.enabled = false;
             removeButton.interactable = false;
+
+            Destroy(instantiatedItem);
         }
     }
 }

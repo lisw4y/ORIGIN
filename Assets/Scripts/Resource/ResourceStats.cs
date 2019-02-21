@@ -4,7 +4,7 @@ public class ResourceStats : CharacterStats
 {
     [Tooltip("This kind of resource can be only exploited by this equipment")]
     public string equipmentName;
-    public DroppedItem[] generatedItems;
+    public GameObject[] generatedItems;
     public float regeneratedTime;
 
     AudioSource audioSource;
@@ -65,9 +65,10 @@ public class ResourceStats : CharacterStats
         meshRenderer.enabled = false;
         capsuleCollider.enabled = false;
         interactable.CloseInfo();
-        foreach (DroppedItem item in generatedItems)
+        foreach (GameObject item in generatedItems)
         {
-            Instantiate(item, new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z), transform.rotation);
+            Instantiate(item, new Vector3(transform.position.x + Random.Range(-1f, 1f),
+                transform.position.y + 3f, transform.position.z + Random.Range(-1f, 1f)), transform.rotation);
         }
     }
 }

@@ -12,6 +12,9 @@ public class Equipment : Item
     public int attackPower;
     public Material[] materials;
     public int[] amountNeeded;
+    public GameObject instantiatedItem;
+    public Vector3 EquipPosition;
+    public Vector3 EquipRotation;
 
     public override void Use(int index)
     { 
