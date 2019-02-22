@@ -49,6 +49,9 @@ public class PlayerFollow : MonoBehaviour
     // LateUpdate is called after Update methods
     void LateUpdate()
     {
+        if (HUDManager.instance.inventoryPanel.activeSelf)
+            return;
+
         if (IsRotateActive)
         {
 
