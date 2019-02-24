@@ -10,7 +10,7 @@ public class Equipment : Item
 {
     public EquipmentType equipmentType;
     public int attackPower;
-    public Material[] materials;
+    public _Material[] materials;
     public int[] amountNeeded;
     public GameObject instantiatedItem;
     public Vector3 EquipPosition;
@@ -20,6 +20,5 @@ public class Equipment : Item
     { 
         base.Use(index);
         EquipmentManager.instance.Equip(this);
-        RemoveFromInventory(index);
     }
 }

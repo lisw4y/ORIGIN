@@ -28,4 +28,9 @@ public class ButtonManager : MonoBehaviour
     {
         playerController.Attack();
     }
+
+    public void OnCloseDetailButton()
+    {
+        HUDManager.instance.ItemDetailPanel.SetActive(false);
+    }
 }

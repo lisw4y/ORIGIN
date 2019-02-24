@@ -21,6 +21,7 @@ public class Inventory : MonoBehaviour
     public int maxCount = 99;
     public List<Item> items = new List<Item>();
     public List<int> counts = new List<int>();
+    public int[] shortcuts = { -1, -1, -1 };
 
     public bool Add(Item item)
     {
@@ -60,6 +61,12 @@ public class Inventory : MonoBehaviour
         items.RemoveAt(index);
         counts.RemoveAt(index);
 
+        for (int i = 0; i < shortcuts.Length; i++)
+        {
+            if (index < shortcuts[i])
+                shortcuts[i]--;
+        }
+
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
     }
@@ -72,11 +79,24 @@ public class Inventory : MonoBehaviour
         {
             Remove(index);
         }
+        else
+        {
+            if (onItemChangedCallback != null)
+                onItemChangedCallback.Invoke();
+        }
     }
 
     public int GetCount(Item item)
     {
         int index = items.FindIndex(x => x.name.Equals(item.name));
         return index != -1 ? counts[index] : 0;
+    }
+
+    public void PutShortcut(int shortcutIndex, int itemIndex)
+    {
+        shortcuts[shortcutIndex] = itemIndex;
+
+        if (onItemChangedCallback != null)
+            onItemChangedCallback.Invoke();
     }
 }

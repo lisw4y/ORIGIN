@@ -5,15 +5,11 @@ public class Item : ScriptableObject
 {
     new public string name = "New Item";
     public Sprite icon = null;
+    public string detail = "";
     [HideInInspector] public bool isStackable = false;
 
     public virtual void Use(int index)
     {
 
-    }
-
-    public void RemoveFromInventory(int index)
-    {
-        Inventory.instance.Remove(index);
     }
 }
