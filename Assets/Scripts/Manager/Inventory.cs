@@ -63,7 +63,9 @@ public class Inventory : MonoBehaviour
 
         for (int i = 0; i < shortcuts.Length; i++)
         {
-            if (index < shortcuts[i])
+            if (index == shortcuts[i])
+                shortcuts[i] = -1;
+            else if (index < shortcuts[i])
                 shortcuts[i]--;
         }
 

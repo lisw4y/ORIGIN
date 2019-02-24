@@ -61,13 +61,13 @@ public class PlayerStats : CharacterStats
     public override void Die()
     {
         isDead = true;
-        animator.SetTrigger("Die");
+        animator.SetTrigger("death");
 
-        playerAudio.clip = deathClip;
-        playerAudio.Play();
+        //playerAudio.clip = deathClip;
+        //playerAudio.Play();
 
         playerController.enabled = false;
-        PlayerManager.instance.KillPlayer();
+        PlayerManager.instance.Invoke("KillPlayer", 5f);
     }
 
     public void RestoreHealth(float amount)

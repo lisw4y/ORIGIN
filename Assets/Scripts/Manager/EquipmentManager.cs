@@ -36,6 +36,7 @@ public class EquipmentManager : MonoBehaviour
         if (onEquipmentChanged != null)
             onEquipmentChanged.Invoke(newItem);
 
+        Unequip();
         CurrentEquipment = newItem;
         icon.sprite = newItem.icon;
         icon.enabled = true;
