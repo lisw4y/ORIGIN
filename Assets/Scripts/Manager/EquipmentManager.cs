@@ -33,14 +33,6 @@ public class EquipmentManager : MonoBehaviour
 
     public void Equip(Equipment newItem)
     {
-        Equipment oldItem = null;
-
-        if (CurrentEquipment != null)
-        {
-            oldItem = CurrentEquipment;
-            inventory.Add(oldItem);
-        }
-
         if (onEquipmentChanged != null)
             onEquipmentChanged.Invoke(newItem);
 
@@ -59,8 +51,6 @@ public class EquipmentManager : MonoBehaviour
     {
         if (CurrentEquipment != null)
         {
-            inventory.Add(CurrentEquipment);
-
             if (onEquipmentChanged != null)
                 onEquipmentChanged.Invoke(null);
 

@@ -7,26 +7,40 @@ public class InventoryUI : MonoBehaviour
     public GameObject itemsParent;
 
     Inventory inventory;
-    InventorySlot[] slots;
+    InventorySlot[] inventorySlots;
+    ShortcutSlot[] shortcutSlots;
 
     void Start()
     {
         inventory = Inventory.instance;
         inventory.onItemChangedCallback += UpdateUI;
 
-        slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+        inventorySlots = itemsParent.GetComponentsInChildren<InventorySlot>();
+        shortcutSlots = HUDManager.instance.shortcutPanel.GetComponentsInChildren<ShortcutSlot>();
     }
 
     void UpdateUI()
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < inventorySlots.Length; i++)
         {
-             if (i < inventory.items.Count)
+            if (i < inventory.items.Count)
             {
-                slots[i].CreatSlot(inventory.items[i], inventory.counts[i]);
+                inventorySlots[i].CreatSlot(inventory.items[i], inventory.counts[i]);
             } else
             {
-                slots[i].ClearSlot();
+                inventorySlots[i].ClearSlot();
+            }
+        }
+
+        for (int i = 0; i < shortcutSlots.Length; i++)
+        {
+            if (inventory.shortcuts[i] != -1)
+            {
+                shortcutSlots[i].CreatSlot(inventory.items[inventory.shortcuts[i]], inventory.counts[inventory.shortcuts[i]]);
+            }
+            else
+            {
+                shortcutSlots[i].ClearSlot();
             }
         }
     }
