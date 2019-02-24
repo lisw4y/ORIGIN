@@ -28,6 +28,7 @@ public class EquipmentManager : MonoBehaviour
     void Start()
     {
         inventory = Inventory.instance;
+        print("EquipmentManager:inventory: " + inventory);
     }
 
     public void Equip(Equipment newItem)

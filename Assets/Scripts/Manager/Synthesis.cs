@@ -52,6 +52,9 @@ public class Synthesis : MonoBehaviour
 
     public void ShowMaterials(Equipment item)
     {
+        if (inventory == null)
+            inventory = Inventory.instance;
+
         selectedItem = item;
         goodToSynthesize = true;
         foreach(GameObject e in materialSlots)

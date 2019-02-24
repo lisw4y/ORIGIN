@@ -10,6 +10,7 @@ public class Equipment : Item
 {
     public EquipmentType equipmentType;
     public int attackPower;
+    public int durability;
     public Material[] materials;
     public int[] amountNeeded;
     public GameObject instantiatedItem;
