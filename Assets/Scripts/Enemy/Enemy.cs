@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class Enemy : Interactable
 {
     new public string name;
-    public AudioSource audioClip;
 
     PlayerManager playerManager;
     CharacterStats stats;

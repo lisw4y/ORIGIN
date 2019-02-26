@@ -36,6 +36,6 @@ public class DroppedItem : Interactable
         bool wasPickedUp = Inventory.instance.Add(item);
 
         if (wasPickedUp)
-            Destroy(gameObject);
+            Destroy(gameObject, 1f);
     }
 }
