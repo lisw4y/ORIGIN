@@ -5,25 +5,16 @@ using UnityEngine;
 public class PlayerFollow : MonoBehaviour
 {
     public Transform PlayerTransform;
-
-    private Vector3 _cameraOffset;
-
-    [Range(0.01f, 1.0f)]
-    public float SmoothFactor = 0.5f;
-
+    [Range(0.01f, 1.0f)] public float SmoothFactor = 0.5f;
     public bool LookAtPlayer = false;
-
     public bool RotateAroundPlayer = true;
-
-    public bool RotateMiddleMouseButton = true;
-
     public float RotationsSpeed = 5.0f;
-
     public float CameraPitchMin = 1.5f;
-
     public float CameraPitchMax = 6.5f;
+    public float yAxisAmend = 1.2f;
 
-    // Use this for initialization
+    Vector3 _cameraOffset;
+
     void Start()
     {
         _cameraOffset = transform.position - PlayerTransform.position;
@@ -36,9 +27,6 @@ public class PlayerFollow : MonoBehaviour
             if (!RotateAroundPlayer)
                 return false;
 
-            if (!RotateMiddleMouseButton)
-                return true;
-
             if (Input.GetMouseButton(0))
                 return true;
 
@@ -46,21 +34,24 @@ public class PlayerFollow : MonoBehaviour
         }
     }
 
-    // LateUpdate is called after Update methods
     void LateUpdate()
     {
-        if (HUDManager.instance.inventoryPanel.activeSelf)
-            return;
-
         if (IsRotateActive)
         {
 
             float h = Input.GetAxis("Mouse X") * RotationsSpeed;
-            float v = Input.GetAxis("Mouse Y") * RotationsSpeed;
 
             Quaternion camTurnAngle = Quaternion.AngleAxis(h, Vector3.up);
 
-            _cameraOffset = camTurnAngle * _cameraOffset;
+            Vector3 newCameraOffset = camTurnAngle * _cameraOffset;
+
+            // Limit camera pitch
+            if (newCameraOffset.y < CameraPitchMin || newCameraOffset.y > CameraPitchMax)
+            {
+                newCameraOffset = camTurnAngle * _cameraOffset;
+            }
+
+            _cameraOffset = newCameraOffset;
 
         }
 
@@ -69,6 +60,6 @@ public class PlayerFollow : MonoBehaviour
         transform.position = Vector3.Slerp(transform.position, newPos, SmoothFactor);
 
         if (LookAtPlayer || RotateAroundPlayer)
-            transform.LookAt(PlayerTransform);
+            transform.LookAt(new Vector3(PlayerTransform.position.x, PlayerTransform.position.y + yAxisAmend, PlayerTransform.position.z));
     }
 }
