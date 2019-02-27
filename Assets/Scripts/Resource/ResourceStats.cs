@@ -68,7 +68,7 @@ public class ResourceStats : CharacterStats
         foreach (GameObject item in generatedItems)
         {
             Instantiate(item, new Vector3(transform.position.x + Random.Range(-1f, 1f),
-                transform.position.y + 3f, transform.position.z + Random.Range(-1f, 1f)), transform.rotation);
+                transform.position.y + 1f, transform.position.z + Random.Range(-1f, 1f)), transform.rotation);
         }
     }
 }
