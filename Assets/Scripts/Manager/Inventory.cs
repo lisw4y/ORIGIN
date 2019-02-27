@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -22,6 +21,7 @@ public class Inventory : MonoBehaviour
     public List<Item> items = new List<Item>();
     public List<int> counts = new List<int>();
     public int[] shortcuts = { -1, -1, -1 };
+    public int itemDetail = -1;
 
     public bool Add(Item item)
     {
@@ -68,6 +68,9 @@ public class Inventory : MonoBehaviour
             else if (index < shortcuts[i])
                 shortcuts[i]--;
         }
+
+        if (index == itemDetail)
+            itemDetail = -1;
 
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();

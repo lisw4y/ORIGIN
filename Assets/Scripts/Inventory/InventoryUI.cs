@@ -9,6 +9,7 @@ public class InventoryUI : MonoBehaviour
     Inventory inventory;
     InventorySlot[] inventorySlots;
     ShortcutSlot[] shortcutSlots;
+    ItemDetailSlot itemDetailSlot;
 
     void Start()
     {
@@ -17,6 +18,7 @@ public class InventoryUI : MonoBehaviour
 
         inventorySlots = itemsParent.GetComponentsInChildren<InventorySlot>();
         shortcutSlots = HUDManager.instance.shortcutPanel.GetComponentsInChildren<ShortcutSlot>();
+        itemDetailSlot = HUDManager.instance.itemDetailSlot;
     }
 
     void UpdateUI()
@@ -25,8 +27,9 @@ public class InventoryUI : MonoBehaviour
         {
             if (i < inventory.items.Count)
             {
-                inventorySlots[i].CreatSlot(inventory.items[i], inventory.counts[i]);
-            } else
+                inventorySlots[i].CreateSlot(inventory.items[i], inventory.counts[i]);
+            }
+            else
             {
                 inventorySlots[i].ClearSlot();
             }
@@ -42,6 +45,15 @@ public class InventoryUI : MonoBehaviour
             {
                 shortcutSlots[i].ClearSlot();
             }
+        }
+
+        if (inventory.itemDetail != -1)
+        {
+            itemDetailSlot.CreateSlot(inventory.items[inventory.itemDetail], inventory.counts[inventory.itemDetail]);
+        }
+        else
+        {
+            itemDetailSlot.ClearSlot();
         }
     }
 }

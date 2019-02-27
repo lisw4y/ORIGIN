@@ -36,9 +36,11 @@ public class PlayerFollow : MonoBehaviour
 
     void LateUpdate()
     {
+        if (HUDManager.instance.inventoryPanel.activeSelf)
+            return;
+
         if (IsRotateActive)
         {
-
             float h = Input.GetAxis("Mouse X") * RotationsSpeed;
 
             Quaternion camTurnAngle = Quaternion.AngleAxis(h, Vector3.up);
@@ -52,7 +54,6 @@ public class PlayerFollow : MonoBehaviour
             }
 
             _cameraOffset = newCameraOffset;
-
         }
 
         Vector3 newPos = PlayerTransform.position + _cameraOffset;

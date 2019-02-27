@@ -68,7 +68,7 @@ public class Synthesis : MonoBehaviour
             InventorySlot materialSlot = materialSlots[i].transform.GetChild(0).GetComponent<InventorySlot>();
             int count = inventory.GetCount(material);
             bool isEnough = count >= item.amountNeeded[i];
-            materialSlot.CreatSlot(material, count, isEnough);
+            materialSlot.CreateSlot(material, count, isEnough);
             if (!isEnough)
                 goodToSynthesize = false;
 

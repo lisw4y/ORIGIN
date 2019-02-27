@@ -31,6 +31,7 @@ public class HUDManager : MonoBehaviour
     [HideInInspector] public Text enemyTitleText;
     [HideInInspector] public Slider enemySlider;
     [HideInInspector] public Text enemyText;
+    [HideInInspector] public ItemDetailSlot itemDetailSlot;
     [HideInInspector] public Image DetailImage;
     [HideInInspector] public Text DetailCount;
     [HideInInspector] public Text DetailText;
@@ -50,9 +51,7 @@ public class HUDManager : MonoBehaviour
         enemyTitleText = enemyPanel.transform.Find("EnemyTitleText").GetComponent<Text>();
         enemySlider = enemyPanel.transform.Find("EnemySlider").GetComponent<Slider>();
         enemyText = enemySlider.transform.Find("EnemyText").GetComponent<Text>();
-        DetailImage = ItemDetailPanel.transform.Find("ItemSlot/ItemImage").GetComponent<Image>();
-        DetailCount = ItemDetailPanel.transform.Find("ItemSlot/CountText").GetComponent<Text>();
-        DetailText = ItemDetailPanel.transform.Find("DetailText").GetComponent<Text>();
+        itemDetailSlot = ItemDetailPanel.transform.Find("ItemSlot").GetComponent<ItemDetailSlot>();
         DetailUseButton = ItemDetailPanel.transform.Find("UseButton").GetComponent<Button>();
         DetailShortcutButton1 = ItemDetailPanel.transform.Find("ShortcutButtons/ShortcutButton").GetComponent<Button>();
         DetailShortcutButton2 = ItemDetailPanel.transform.Find("ShortcutButtons/ShortcutButton (1)").GetComponent<Button>();
