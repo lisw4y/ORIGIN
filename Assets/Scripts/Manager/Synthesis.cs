@@ -38,6 +38,7 @@ public class Synthesis : MonoBehaviour
 
     private void ResetDetailPanel()
     {
+        HUDManager.instance.ItemDetailPanel.SetActive(false);
         if (selectedItem != null)
         {
             ShowMaterials(selectedItem);

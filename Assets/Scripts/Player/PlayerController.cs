@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
         } else
         {
             HUDManager.instance.inventoryPanel.SetActive(false);
+            HUDManager.instance.ItemDetailPanel.SetActive(false);
         }
     }
 

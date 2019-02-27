@@ -40,7 +40,7 @@ public class HUDManager : MonoBehaviour
     [HideInInspector] public Button DetailShortcutButton3;
     [HideInInspector] public Text messageText;
 
-    void Start()
+    void OnEnable()
     {
         hudCanvas = HUD.GetComponent<Canvas>();
         healthSlider = statusPanel.transform.Find("HealthSlider").GetComponent<Slider>();

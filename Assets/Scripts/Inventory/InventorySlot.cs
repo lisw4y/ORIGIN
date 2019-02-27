@@ -11,6 +11,7 @@ public class InventorySlot : MonoBehaviour
 
     public void CreatSlot(Item newItem, int count)
     {
+        ClearSlot();
         item = newItem;
         icon.sprite = item.icon;
         icon.enabled = true;
