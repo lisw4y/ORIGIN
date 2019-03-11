@@ -71,6 +71,8 @@ public class Inventory : MonoBehaviour
 
         if (index == itemDetail)
             itemDetail = -1;
+        else if (index < itemDetail)
+            itemDetail--;
 
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
