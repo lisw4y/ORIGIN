@@ -27,7 +27,7 @@ public class PlayerFollow : MonoBehaviour
             if (!RotateAroundPlayer)
                 return false;
 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && Input.mousePosition.x/Screen.width > 0.4 && Input.mousePosition.y/Screen.height > 0.3)
                 return true;
 
             return false;
@@ -42,6 +42,7 @@ public class PlayerFollow : MonoBehaviour
         if (IsRotateActive)
         {
             float h = Input.GetAxis("Mouse X") * RotationsSpeed;
+            print(Input.mousePosition);
 
             Quaternion camTurnAngle = Quaternion.AngleAxis(h, Vector3.up);
 

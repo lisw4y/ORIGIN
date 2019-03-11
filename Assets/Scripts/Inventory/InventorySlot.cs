@@ -19,13 +19,6 @@ public class InventorySlot : MonoBehaviour
         removeButton.interactable = true;
     }
 
-    public void CreateSlot(Item item, int count, bool isEnough)
-    {
-        CreateSlot(item, count);
-        countText.color = isEnough ? Color.black : Color.red;
-        removeButton.interactable = false;
-    }
-
     public void ClearSlot()
     {
         item = null;

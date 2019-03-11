@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
     public float jumpSpeed = 7.0f;
     public float gravity = 20.0f;
     public GameObject hand;
-    
+    public Joystick joystick;
+
     Vector3 movementDirection;
     Animator animator;
     CharacterController characterController;
@@ -31,8 +32,10 @@ public class PlayerController : MonoBehaviour
         if (HUDManager.instance.inventoryPanel.activeSelf || animator.GetCurrentAnimatorStateInfo(0).IsName("Pickup"))
             return;
 
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        //float h = Input.GetAxisRaw("Horizontal");
+        //float v = Input.GetAxisRaw("Vertical");
+        float h = joystick.Horizontal;
+        float v = joystick.Vertical;
 
         Move(h, v);
     }
@@ -72,6 +75,8 @@ public class PlayerController : MonoBehaviour
         {
             movementDirection = transform.forward * move.magnitude;
             movementDirection *= speed;
+
+            // IsRunning = Vector3.Magnitude(movementDirection) > 4.5f;
 
             if (Input.GetButton("Jump"))
             {

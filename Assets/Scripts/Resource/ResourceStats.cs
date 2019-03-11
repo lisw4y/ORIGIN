@@ -11,6 +11,7 @@ public class ResourceStats : CharacterStats
     float waitRegeneratedTime;
     Interactable interactable;
     MeshRenderer meshRenderer;
+    MeshCollider meshCollider;
     CapsuleCollider capsuleCollider;
 
     void Start()
@@ -18,6 +19,7 @@ public class ResourceStats : CharacterStats
         audioSource = GetComponent<AudioSource>();
         interactable = GetComponent<Interactable>();
         meshRenderer = GetComponent<MeshRenderer>();
+        meshCollider = GetComponent<MeshCollider>();
         capsuleCollider = GetComponent<CapsuleCollider>();
     }
     
@@ -31,6 +33,7 @@ public class ResourceStats : CharacterStats
                 isDead = false;
                 currentHealth = maxHealth;
                 meshRenderer.enabled = true;
+                meshCollider.enabled = true;
                 capsuleCollider.enabled = true;
             }
         }
@@ -63,6 +66,7 @@ public class ResourceStats : CharacterStats
     public override void Die()
     {
         meshRenderer.enabled = false;
+        meshCollider.enabled = false;
         capsuleCollider.enabled = false;
         interactable.CloseInfo();
         foreach (GameObject item in generatedItems)

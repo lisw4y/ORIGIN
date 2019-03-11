@@ -13,12 +13,14 @@ public class Synthesis : MonoBehaviour
     public GameObject detailPanel;
     public GameObject[] materialSlots;
     public GameObject createButton;
+    private AudioSource audioSource;
     private Equipment selectedItem;
     private bool goodToSynthesize;
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         inventory = Inventory.instance;
         for (int i = 0; i < selectContents.Length; i++)
         {
@@ -39,11 +41,11 @@ public class Synthesis : MonoBehaviour
     private void ResetDetailPanel()
     {
         HUDManager.instance.ItemDetailPanel.SetActive(false);
-        if (selectedItem != null)
+        /*if (selectedItem != null)
         {
             ShowMaterials(selectedItem);
         }
-        else detailPanel.SetActive(false);
+        else */detailPanel.SetActive(false);
     }
 
     public void OnSelectItemButton(Equipment item)
@@ -53,6 +55,8 @@ public class Synthesis : MonoBehaviour
 
     public void ShowMaterials(Equipment item)
     {
+        StartCoroutine(FlashDetailPanel());
+        //detailPanel.SetActive(false);
         if (inventory == null)
             inventory = Inventory.instance;
 
@@ -65,7 +69,7 @@ public class Synthesis : MonoBehaviour
         for (int i = 0; i < item.materials.Length; i++)
         {
             Item material = item.materials[i];
-            InventorySlot materialSlot = materialSlots[i].transform.GetChild(0).GetComponent<InventorySlot>();
+            DisplaySlot materialSlot = materialSlots[i].transform.GetChild(0).GetComponent<DisplaySlot>();
             int count = inventory.GetCount(material);
             bool isEnough = count >= item.amountNeeded[i];
             materialSlot.CreateSlot(material, count, isEnough);
@@ -76,7 +80,6 @@ public class Synthesis : MonoBehaviour
             amountNeeded.text = item.amountNeeded[i].ToString();
             materialSlots[i].SetActive(true);
         }
-        detailPanel.SetActive(true);
         createButton.SetActive(goodToSynthesize);
     }
 
@@ -84,6 +87,7 @@ public class Synthesis : MonoBehaviour
     {
         if (goodToSynthesize)
         {
+            audioSource.Play();
             // subtract amount of material by amount needed
             for (int i = 0; i < selectedItem.materials.Length; i++)
             {
@@ -93,6 +97,13 @@ public class Synthesis : MonoBehaviour
             inventory.Add(selectedItem);
             ShowMaterials(selectedItem);
         }
+    }
+
+    IEnumerator FlashDetailPanel()
+    {
+        detailPanel.SetActive(false);
+        yield return new WaitForSeconds(0.05f);
+        detailPanel.SetActive(true);
     }
 
 }
